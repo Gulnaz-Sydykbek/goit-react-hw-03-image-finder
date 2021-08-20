@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import ImageForm from './images/ImageForm';
-import ImageInfo from './images/ImageInfo';
+import Searchbar from './images/searchbar/Searchbar';
+import ImageGallery from './images/imageGallery/ImageGallery';
 
 class App extends Component {
   state = {
@@ -19,8 +19,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <ImageForm onFormSubmit={this.handleFormSubmit} />
-        <ImageInfo imageName={this.state.imageName} />
+        <Searchbar onFormSubmit={this.handleFormSubmit} />
+        <ImageGallery imageName={this.state.imageName} />
 
         <ToastContainer autoClose={3000} />
       </div>
