@@ -8,6 +8,7 @@ import ImageGallery from './images/imageGallery/ImageGallery';
 import Loader from './images/loader/Loader';
 import Error from './images/error/Error';
 import Button from './images/button/Button';
+import Modal from './images/modal/Modal';
 
 class App extends Component {
   state = {
@@ -16,6 +17,8 @@ class App extends Component {
     status: 'idle',
     error: null,
     page: 1,
+    showModal: false,
+    largeImageURL: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -69,8 +72,22 @@ class App extends Component {
     });
   };
 
+  toggleModal = () => {
+    this.setState(prevState => ({
+      showModal: !prevState.showModal,
+    }));
+  };
+
+  openLargeImg = largeImageURL => {
+    this.setState({
+      largeImageURL,
+    });
+
+    this.toggleModal();
+  };
+
   render() {
-    const { images, error, status } = this.state;
+    const { images, error, status, largeImageURL, showModal } = this.state;
 
     if (status === 'idle') {
       return <Searchbar onFormSubmit={this.handleFormSubmit} />;
@@ -88,10 +105,16 @@ class App extends Component {
       return (
         <div>
           <Searchbar onFormSubmit={this.handleFormSubmit} />
-          <ImageGallery images={images} />
+          <ImageGallery images={images} onOpenLargeImg={this.openLargeImg} />
 
           {images.length !== 0 && (
             <Button onLoadMoreClick={this.imagesFetchApi} />
+          )}
+
+          {showModal && (
+            <Modal onToggleModal={this.toggleModal}>
+              <img src={largeImageURL} alt="" />
+            </Modal>
           )}
 
           <ToastContainer autoClose={3000} />

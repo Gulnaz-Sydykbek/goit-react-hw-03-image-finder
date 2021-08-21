@@ -3,31 +3,10 @@ import PropTypes from 'prop-types';
 
 import s from './Image.module.css';
 import ImageGalleryItem from './ImageGalleryItem';
-import Modal from '../modal/Modal';
 
 class ImageGallery extends Component {
-  state = {
-    showModal: false,
-    largeImageURL: null,
-  };
-
-  toggleModal = () => {
-    this.setState(prevState => ({
-      showModal: !prevState.showModal,
-    }));
-  };
-
-  openLargeImg = largeImageURL => {
-    this.setState({
-      largeImageURL,
-    });
-
-    this.toggleModal();
-  };
-
   render() {
     const { images } = this.props;
-    const { largeImageURL, showModal } = this.state;
     const { ImageGallery } = s;
 
     return (
@@ -39,16 +18,10 @@ class ImageGallery extends Component {
               webformatURL={webformatURL}
               tags={tags}
               largeImageURL={largeImageURL}
-              onOpenLargeImg={this.openLargeImg}
+              onOpenLargeImgUrl={this.props.onOpenLargeImg}
             />
           ))}
         </ul>
-
-        {showModal && (
-          <Modal onToggleModal={this.toggleModal}>
-            <img src={largeImageURL} alt="" />
-          </Modal>
-        )}
       </div>
     );
   }
