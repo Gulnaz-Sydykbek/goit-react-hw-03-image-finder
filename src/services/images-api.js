@@ -19,7 +19,7 @@ function fetchImages(name, page) {
 
 fetchImages.propTypes = {
   name: PropTypes.string.isRequired,
-  page: PropTypes.number.isRequired,
+  //page: PropTypes.number.isRequired,
 };
 
 export default fetchImages;
